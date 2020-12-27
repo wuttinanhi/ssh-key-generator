@@ -2,6 +2,17 @@ version: "3"
 
 services:
   ssh-key-generator:
-    build: ./
-    volumes: 
-      - "/c/volume/sshkey:/sshkey"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment: 
+      - KEY_FORMAT=PEM
+      - TYPE=rsa
+      - PASSPHRASE=default
+      - COMMENT=default
+      - FILENAME=/sshkey/id_rsa
+    volumes:
+      - "sshkey:/sshkey"
+
+volumes:
+  sshkey:
